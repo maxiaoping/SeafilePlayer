@@ -1,30 +1,16 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 26
 
     defaultConfig {
-        applicationId 'com.seafile.seadroid2'
+        applicationId 'com.shuyu.gsyvideoplayer.seafile'
         minSdkVersion 21
-        targetSdkVersion 30
+        targetSdkVersion 26
         versionCode 1
         versionName "1.0.0"
-        multiDexEnabled true
-        ndk {
-            abiFilters 'armeabi-v7a', 'arm64-v8a', 'x86_64', 'x86'
-        }
     }
 
-    lintOptions {
-        abortOnError false
-        disable 'MissingTranslation'
-    }
-
-
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
 
     buildTypes {
         release {
@@ -32,21 +18,29 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    buildTypes {
+        debug {
+            debuggable true
+            applicationIdSuffix ".debug"
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-project.txt'
+        }
+    }
     sourceSets {
         main {
             jniLibs.srcDirs = ['libs']
         }
     }
+    dependencies {
+        implementation fileTree(dir: 'libs', include: ['*.jar'])
+        implementation 'com.android.support:appcompat-v7:26.0.0'
+        implementation 'com.squareup.okhttp3:okhttp:4.9.1'
+        implementation 'com.shuyu:gsyVideoPlayer-ex_so:6.0.1'
+        implementation 'tv.danmaku.ijk.media:ijkplayer-java:0.8.8'
+        implementation 'tv.danmaku.ijk.media:ijkplayer-exo:0.8.8'
+        implementation "com.andkulikov:transitionseverywhere:1.7.4"
+        implementation "com.shuyu:gsyVideoPlayer-base:6.0.1"
+        implementation "com.shuyu:gsyvideoplayer-androidvideocache:6.0.1"
+    }
 }
 
-dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'com.android.support:appcompat-v7:27.1.1'
-    implementation 'com.squareup.okhttp3:okhttp:4.9.1'
-    implementation 'com.shuyu:gsyVideoPlayer-ex_so:6.0.1'
-    implementation 'tv.danmaku.ijk.media:ijkplayer-java:0.8.8'
-    implementation 'tv.danmaku.ijk.media:ijkplayer-exo:0.8.8'
-    implementation "com.andkulikov:transitionseverywhere:1.7.4"
-    implementation "com.shuyu:gsyVideoPlayer-base:6.0.1"
-    implementation "com.shuyu:gsyvideoplayer-androidvideocache:6.0.1"
-}
