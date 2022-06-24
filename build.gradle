@@ -1,50 +1,35 @@
+apply plugin: 'java'
+apply plugin: 'maven-publish'
 
+group = 'com.shuyu.gsyvideoplayer'
+version = '2.0'
+
+
+sourceCompatibility = 1.8 // java 8
+targetCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'com.google.guava:guava:29.0-jre'
+}
+
+java {
+    withSourcesJar()
+    withJavadocJar()
+}
 
 publishing {
     publications {
-        mavenJava(MavenPublication) {
-            mavenJava(MavenPublication) {
-                from components.java
-            }
+        maven(MavenPublication) {
+            from components.java
         }
     }
 }
-buildscript {
-    repositories {
-        maven { url 'https://jitpack.io' }
-        maven { url 'https://maven.google.com' }
-        jcenter()
-        google()
-    }
-    dependencies {
-        classpath 'com.android.tools.build:gradle:4.1.0'
 
-        classpath 'com.github.dcendents:android-maven-gradle-plugin:1.5'
-        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.6'
-    }
-}
-
-
-
-
-allprojects {
-    repositories {
-        google()
-        jcenter()
-        mavenCentral()
-        maven { url 'https://jitpack.io' }
-        maven { url 'https://maven.google.com' }
-    }
-}
-
-task clean(type: Delete) {
-    delete rootProject.buildDir
-}
-
-ext {
-    compileSdkVersion = 29
-    supportLibVersion = '27.1.1'  // variable that can be referenced to keep support libs consistent
-    minSdkVersion = 21
-    targetSdkVersion = 30
-    buildToolsVersion = '27.0.3'
+wrapper {
+    gradleVersion = "7.3.3"
+    distributionType = Wrapper.DistributionType.ALL
 }
